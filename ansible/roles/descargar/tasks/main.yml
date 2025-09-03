@@ -1,6 +1,6 @@
 - name: Instalar pip
   ansible.builtin.dnf:
-    name: pip
+    name: python3-pip
     state: latest
 
 - name: Instalar gdown

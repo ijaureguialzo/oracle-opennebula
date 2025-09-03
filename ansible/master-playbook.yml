@@ -17,6 +17,3 @@
   gather_facts: yes
   roles:
     - { role: actualizar, become: yes }
-    - { role: usuario, become: yes }
-    - { role: docker, become: yes }
-    - { role: extras, become: yes }

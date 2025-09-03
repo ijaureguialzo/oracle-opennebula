@@ -7,7 +7,13 @@
   ansible.builtin.pip:
     name: gdown
 
+- name: Comprobar si ya se ha descargado el instalador
+  ansible.builtin.stat:
+    path: "/tmp/{{ ORACLE_RPM_FILENAME }}"
+  register: oracle_rpm_file
+
 - name: Descargar el instalador de Oracle
   ansible.builtin.shell: "/usr/local/bin/gdown {{ GOOGLE_DRIVE_DOWNLOAD_ID }}"
   args:
     chdir: "/tmp"
+  when: oracle_rpm_file.stat.exists == false

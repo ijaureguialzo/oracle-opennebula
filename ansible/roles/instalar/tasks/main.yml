@@ -31,6 +31,28 @@
     - root
     - oracle
 
+- name: Permitir sudo sin contraseña
+  copy:
+    content: 'oracle ALL=(ALL:ALL) NOPASSWD:ALL'
+    dest: /etc/sudoers.d/oracle_nopasswd
+    mode: 0440
+
+- name: Crear el directorio .ssh del usuario oracle
+  file:
+    path: /home/oracle/.ssh
+    state: directory
+    owner: oracle
+    group: oinstall
+
+- name: Copiar el fichero authorized_keys del root al usuario oracle
+  ansible.builtin.copy:
+    src: /root/.ssh/authorized_keys
+    dest: /home/oracle/.ssh/authorized_keys
+    remote_src: yes
+    owner: oracle
+    group: oinstall
+    mode: '0400'
+
 - name: Configurar el firewall
   ansible.builtin.shell: |
     firewall-cmd --add-port=1521/tcp --permanent

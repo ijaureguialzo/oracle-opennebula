@@ -51,6 +51,9 @@ workspace:
 	@docker compose run --rm terraform-ansible /bin/sh
 
 ssh:
+	@docker compose run --rm terraform-ansible run_ssh.sh oracle
+
+ssh-root:
 	@docker compose run --rm terraform-ansible run_ssh.sh
 
 taint:

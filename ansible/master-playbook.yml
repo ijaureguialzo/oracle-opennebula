@@ -12,8 +12,11 @@
 
 - name: Configurar el servidor
   hosts: reachable
+  vars_files:
+    - main.yml
   vars:
     ansible_python_interpreter: auto_silent
   gather_facts: yes
   roles:
     - { role: actualizar, become: yes }
+    - { role: descargar, become: yes }

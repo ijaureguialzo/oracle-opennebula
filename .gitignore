@@ -83,3 +83,5 @@ terraform/.terraform.lock.hcl
 terraform/variables.tf
 
 private/
+
+ansible/vars/main.yml

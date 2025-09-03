@@ -1,0 +1,13 @@
+- name: Instalar pip
+  ansible.builtin.dnf:
+    name: pip
+    state: latest
+
+- name: Instalar gdown
+  ansible.builtin.pip:
+    name: gdown
+
+- name: Descargar el instalador de Oracle
+  ansible.builtin.shell: "/usr/local/bin/gdown {{ GOOGLE_DRIVE_DOWNLOAD_ID }}"
+  args:
+    chdir: "/tmp"

@@ -14,7 +14,7 @@ help: _header
 	@echo build
 	@echo init / plan / apply / show / output / destroy
 	@echo workspace
-	@echo ssh / ssh-root
+	@echo ssh
 	@echo clean
 	@echo nuke-apply
 	@echo reset-terraform
@@ -51,9 +51,6 @@ workspace:
 	@docker compose run --rm terraform-ansible /bin/sh
 
 ssh:
-	@docker compose run --rm terraform-ansible run_ssh.sh oracle
-
-ssh-root:
 	@docker compose run --rm terraform-ansible run_ssh.sh
 
 clean:

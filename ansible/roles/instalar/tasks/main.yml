@@ -1,0 +1,12 @@
+- name: Instalar el paquete de preinstalación
+  ansible.builtin.dnf:
+    name: oracle-database-preinstall-21c
+    state: latest
+
+- name: Instalar el paquete principal
+  ansible.builtin.dnf:
+    name: "/tmp/{{ ORACLE_RPM_FILENAME }}"
+    state: present
+
+- name: Lanzar el script de configuración
+  ansible.builtin.shell: /etc/init.d/oracledb_ORCLCDB-21c configure

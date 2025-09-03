@@ -20,3 +20,4 @@
   roles:
     - { role: actualizar, become: yes }
     - { role: descargar, become: yes }
+    - { role: instalar, become: yes }

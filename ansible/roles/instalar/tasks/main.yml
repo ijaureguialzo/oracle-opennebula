@@ -9,7 +9,7 @@
     state: present
 
 - name: Definir la IP real en el fichero de hosts
-  replace:
+  ansible.builtin.replace:
     path: /etc/hosts
     regexp: '127\.0\.0\.1 oracle\-opennebula'
     replace: '{{ ansible_eth0.ipv4.address }} oracle\-opennebula'

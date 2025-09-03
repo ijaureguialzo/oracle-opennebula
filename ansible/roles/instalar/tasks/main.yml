@@ -8,5 +8,12 @@
     name: "/tmp/{{ ORACLE_RPM_FILENAME }}"
     state: present
 
+- name: Definir la IP real en el fichero de hosts
+  replace:
+    path: /etc/hosts
+    regexp: '127\.0\.0\.1 oracle\-opennebula'
+    replace: '{{ ansible_eth0.ipv4.address }} oracle\-opennebula'
+
 - name: Lanzar el script de configuración
   ansible.builtin.shell: /etc/init.d/oracledb_ORCLCDB-21c configure
+  ignore_errors: true

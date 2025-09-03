@@ -17,3 +17,45 @@
 - name: Lanzar el script de configuración
   ansible.builtin.shell: /etc/init.d/oracledb_ORCLCDB-21c configure
   ignore_errors: true
+
+- name: Configurar las variables de entorno de los usuarios
+  ansible.builtin.blockinfile:
+    path: ~/.bash_profile
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      export ORACLE_HOME=/opt/oracle/product/21c/dbhome_1
+      export PATH=$ORACLE_HOME/bin:$PATH
+      export ORACLE_SID=ORCLCDB
+  become_user: "{{ item }}"
+  loop:
+    - root
+    - oracle
+
+- name: Configurar el firewall
+  ansible.builtin.shell: |
+    firewall-cmd --add-port=1521/tcp --permanent
+    firewall-cmd --reload
+
+- name: Parar el listener
+  ansible.builtin.shell: "source ~/.bash_profile; lsnrctl stop"
+  become_user: oracle
+  ignore_errors: true
+
+- name: Copiar el fichero de definición del listener
+  ansible.builtin.template:
+    src: ./templates/listener.ora
+    dest: /opt/oracle/homes/OraDBHome21cEE/network/admin/listener.ora
+
+- name: Arrancar el listener
+  ansible.builtin.shell: "source ~/.bash_profile; lsnrctl start"
+  become_user: oracle
+  ignore_errors: true
+
+- name: Recargar los servicios de systemd
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: Habilitar el servicio de Oracle
+  ansible.builtin.systemd_service:
+    name: oracledb_ORCLCDB-21c
+    enabled: true

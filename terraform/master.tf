@@ -11,8 +11,8 @@ resource "opennebula_virtual_machine" "master" {
   lock = local.opennebula.vm.locked ? "USE" : "UNLOCK"
 
   context = {
-    NETWORK        = "YES"
-    SET_HOSTNAME   = "$NAME"
+    NETWORK      = "YES"
+    SET_HOSTNAME = "$NAME"
     SSH_PUBLIC_KEY = join("\n", [
       join("\n", split("|", replace(var.SSH_PUBLIC_KEY, "/[\"']/", ""))),
       file("~/.ssh/id_rsa.pub")
@@ -50,25 +50,6 @@ resource "null_resource" "ansible_master" {
   }
 }
 
-resource "null_resource" "ansible_portainer" {
-  depends_on = [
-    null_resource.ansible_master
-  ]
-
-  count = local.ansible.install_portainer ? 1 : 0
-
-  provisioner "local-exec" {
-    quiet   = true
-    command = <<EOT
-      ANSIBLE_HOST_KEY_CHECKING=False \
-      ANSIBLE_FORCE_COLOR=True \
-      ansible-playbook \
-        -i "${local.master.connection_ip}," \
-        /ansible/portainer-playbook.yml
-    EOT
-  }
-}
-
 locals {
   master = {
     name          = opennebula_virtual_machine.master.name
@@ -80,8 +61,4 @@ locals {
 
 output "master" {
   value = local.master
-}
-
-output "portainer_url" {
-  value = local.ansible.install_portainer ? format("https://%s:9443",local.master.connection_ip) : ""
 }

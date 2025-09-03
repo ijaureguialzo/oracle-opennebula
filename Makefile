@@ -53,6 +53,9 @@ workspace:
 ssh:
 	@docker compose run --rm terraform-ansible run_ssh.sh
 
+taint:
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_master
+
 clean:
 	@docker compose down -v --remove-orphans
 

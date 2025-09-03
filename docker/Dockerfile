@@ -1,9 +1,15 @@
 ARG TERRAFORM_VERSION=latest
 
-FROM hashicorp/terraform:${TERRAFORM_VERSION}
+FROM alpine:3.19
 
 # Instalar los paquetes necesarios
 RUN apk add ansible openssh curl jq make nano
+
+RUN release=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest |  grep tag_name | cut -d: -f2 | tr -d \"\,\v | awk '{$1=$1};1'` && \
+    wget https://releases.hashicorp.com/terraform/${release}/terraform_${release}_linux_arm64.zip && \
+    unzip terraform_${release}_linux_arm64.zip && \
+    rm terraform_${release}_linux_arm64.zip LICENSE.txt && \
+    mv terraform /usr/bin/terraform
 
 RUN apk add bash bash-completion shadow && \
     chsh root --shell /bin/bash && \

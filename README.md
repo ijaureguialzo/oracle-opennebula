@@ -1,16 +1,3 @@
 # oracle-opennebula
 
-```
- _________________________________________
-/ The worst part of having success is     \
-| trying to find someone who is happy for |
-| you.                                    |
-|                                         |
-\ -- Bette Midler                         /
- -----------------------------------------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
-```
+Servidor de base de datos con Oracle Linux 8 y Oracle Database 21c.

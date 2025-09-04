@@ -15,7 +15,7 @@
     replace: '{{ ansible_eth0.ipv4.address }} oracle\-opennebula'
 
 - name: Comprobar si ya se ha lanzado el script de configuración
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "/etc/oratab"
     line: "ORCLCDB:/opt/oracle/product/21c/dbhome_1:N"
     state: present
@@ -27,7 +27,7 @@
   when: oracle_configurado.changed == true
 
 - name: Crear el directorio remote_tmp del usuario oracle
-  file:
+  ansible.builtin.file:
     path: /home/oracle/.ansible/tmp
     state: directory
     owner: oracle
@@ -47,13 +47,13 @@
     - oracle
 
 - name: Permitir sudo sin contraseña
-  copy:
+  ansible.builtin.copy:
     content: 'oracle ALL=(ALL:ALL) NOPASSWD:ALL'
     dest: /etc/sudoers.d/oracle_nopasswd
     mode: 0440
 
 - name: Crear el directorio .ssh del usuario oracle
-  file:
+  ansible.builtin.file:
     path: /home/oracle/.ssh
     state: directory
     owner: oracle

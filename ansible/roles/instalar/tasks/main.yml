@@ -26,6 +26,13 @@
   ansible.builtin.shell: /etc/init.d/oracledb_ORCLCDB-21c configure
   when: oracle_configurado.changed == true
 
+- name: Crear el directorio remote_tmp del usuario oracle
+  file:
+    path: /home/oracle/.ansible/tmp
+    state: directory
+    owner: oracle
+    group: oinstall
+
 - name: Configurar las variables de entorno de los usuarios
   ansible.builtin.blockinfile:
     path: ~/.bash_profile

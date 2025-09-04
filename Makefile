@@ -14,7 +14,8 @@ help: _header
 	@echo build
 	@echo init / plan / apply / show / output / destroy
 	@echo workspace
-	@echo ssh
+	@echo ssh / ssh-root
+	@echo taint
 	@echo clean
 	@echo nuke-apply
 	@echo reset-terraform

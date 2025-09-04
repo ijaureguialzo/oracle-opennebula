@@ -89,3 +89,11 @@
   ansible.builtin.systemd_service:
     name: oracledb_ORCLCDB-21c
     enabled: true
+
+- name: Cambiar el password del usuario SYS
+  ansible.builtin.shell: |
+    source ~/.bash_profile;
+    sqlplus / as sysdba <<EOF
+        alter user sys identified by "{{ ORACLE_SYS_PASSWORD }}";
+    EOF
+  become_user: oracle

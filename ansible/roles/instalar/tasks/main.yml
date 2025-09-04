@@ -69,7 +69,6 @@
 - name: Parar el listener
   ansible.builtin.shell: "source ~/.bash_profile; lsnrctl stop"
   become_user: oracle
-  ignore_errors: true
 
 - name: Copiar el fichero de definición del listener
   ansible.builtin.template:
@@ -79,7 +78,6 @@
 - name: Arrancar el listener
   ansible.builtin.shell: "source ~/.bash_profile; lsnrctl start"
   become_user: oracle
-  ignore_errors: true
 
 - name: Recargar los servicios de systemd
   ansible.builtin.systemd_service:

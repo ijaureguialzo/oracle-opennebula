@@ -24,7 +24,7 @@
 
 - name: Lanzar el script de configuración
   ansible.builtin.shell: /etc/init.d/oracledb_ORCLCDB-21c configure
-  when: oracle_configurado == false
+  when: oracle_configurado.changed == true
 
 - name: Configurar las variables de entorno de los usuarios
   ansible.builtin.blockinfile:

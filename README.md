@@ -2,6 +2,27 @@
 
 Servidor de base de datos con Oracle Linux 8 y Oracle Database 21c.
 
+## Cambio de contraseña del usuario SYS
+
+Acceder por SSH con el usuario `oracle`:
+
+```shell
+make ssh
+```
+
+Conectar con SQL*Plus:
+
+```shell
+sqlplus / as sysdba
+```
+
+Cambiar la contraseña:
+
+```sql
+alter
+user sys identified by "12345Abcde";
+```
+
 ## Referencias
 
 - [Database Installation Guide for Linux](https://docs.oracle.com/en/database/oracle/oracle-database/21/ladbi/preface.html)

@@ -23,6 +23,15 @@ alter
 user sys identified by "12345Abcde";
 ```
 
+## Datos de la instalación
+
+- SID: `ORCLCDB`
+- Servicio: `ORCLPDB1`
+
+## JDBC
+
+- Cadena de conexión: `jdbc:oracle:thin:@IP_SERVIDOR:1521/ORCLPDB1`
+
 ## Referencias
 
 - [Database Installation Guide for Linux](https://docs.oracle.com/en/database/oracle/oracle-database/21/ladbi/preface.html)
@@ -31,3 +40,4 @@ user sys identified by "12345Abcde";
 - [Google Drive raw data?](https://stackoverflow.com/questions/24834877/google-drive-raw-data)
 - [Automatic Startup and Shutdown](https://docs.oracle.com/en/database/oracle/oracle-database/21/ntqrf/automatic-startup-and-shutdown.html)
 - [How to autostart the ORCLCDB sample DB on Oracle Linux 8.5](https://www.mybijourney.com/how-to-autostart-the-orclcdb-sample-db-on-oracle-linux-8-5/)
+- [Oracle CDB y PDB](https://es.stackoverflow.com/a/291841)

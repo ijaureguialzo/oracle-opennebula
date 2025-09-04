@@ -1,3 +1,4 @@
+---
 - name: Instalar el paquete de preinstalación
   ansible.builtin.dnf:
     name: oracle-database-preinstall-21c
@@ -11,8 +12,8 @@
 - name: Definir la IP real en el fichero de hosts
   ansible.builtin.replace:
     path: /etc/hosts
-    regexp: '127\.0\.0\.1 oracle\-opennebula'
-    replace: '{{ ansible_eth0.ipv4.address }} oracle\-opennebula'
+    regexp: "127\\.0\\.0\\.1 oracle\\-opennebula"
+    replace: "{{ ansible_eth0.ipv4.address }} oracle\\-opennebula"
 
 - name: Comprobar si ya se ha lanzado el script de configuración
   ansible.builtin.lineinfile:
@@ -48,9 +49,9 @@
 
 - name: Permitir sudo sin contraseña
   ansible.builtin.copy:
-    content: 'oracle ALL=(ALL:ALL) NOPASSWD:ALL'
+    content: "oracle ALL=(ALL:ALL) NOPASSWD:ALL"
     dest: /etc/sudoers.d/oracle_nopasswd
-    mode: 0440
+    mode: "0440"
 
 - name: Crear el directorio .ssh del usuario oracle
   ansible.builtin.file:
@@ -63,10 +64,10 @@
   ansible.builtin.copy:
     src: /root/.ssh/authorized_keys
     dest: /home/oracle/.ssh/authorized_keys
-    remote_src: yes
+    remote_src: true
     owner: oracle
     group: oinstall
-    mode: '0400'
+    mode: "0400"
 
 - name: Configurar el firewall
   ansible.builtin.shell: |

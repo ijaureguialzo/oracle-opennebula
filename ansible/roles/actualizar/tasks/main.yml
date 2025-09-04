@@ -1,3 +1,4 @@
+---
 - name: Actualizar todos los paquetes
   ansible.builtin.dnf:
     name: "*"
@@ -5,4 +6,4 @@
 
 - name: Eliminar dependencias obsoletas
   ansible.builtin.dnf:
-    autoremove: yes
+    autoremove: true
